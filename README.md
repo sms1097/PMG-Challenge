@@ -1,4 +1,5 @@
 # PMG-Challenge
+## CSV Combiner
 
 This is a parallelized implementation of a script to combine csv files. To run use the following:
 
