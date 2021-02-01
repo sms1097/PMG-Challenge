@@ -5,7 +5,7 @@ There are two implementations that make different assumptions about the problem
 
 To run either file use 
 ``` 
-python src/<file> <input_files> <outptu_files>
+python src/<file> <input_files> <output_files>
 ```
 
 ### Data Set Fits in Memory
