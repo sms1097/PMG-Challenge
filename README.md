@@ -1,10 +1,10 @@
 # PMG-Challenge
 ## CSV Combiner
 
-This is a parallelized implementation of a script to combine csv files. To run use the following:
+There are two implementations that make different assumptions about the problem
 
-```
-python src/combine.py <input_files> <output_file>
-```
+### Data Set Fits in Memory
+The script `src/in_memory_combine.py` uses dask to initialize the datasets in parallel and combine them into one dask dataframe. Dask can be scaled horizontally very easily, so the assumption that the dataframe fits in memory is not unreasonable. 
 
-This script can be scaled horizontally through dask by changing the client.
+### No Data Set Fits in Memory
+The script `src/out_of_memory_combine.py` assumes that none of the data sets to be combined fit in memory. This method uses chunking to sequentially feed data into the output csv file. 
