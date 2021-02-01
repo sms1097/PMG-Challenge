@@ -2,6 +2,7 @@ import sys
 import ntpath
 import pandas as pd
 import dask
+from dask.distributed import Client
 
 
 @dask.delayed
@@ -14,10 +15,16 @@ def make_dataset(file):
 
 @dask.delayed
 def combine(df1, df2):
-    return df1.append(df2)
+    df = df1.copy()
+    return df.append(df2)
 
 
 def main(paths):
+    # setup client
+    client = Client(n_workers=4,
+                    threads_per_worker=1,
+                    memory_limit='10GB')
+
     # import datasets
     datasets = [make_dataset(x) for x in paths[:-1]]
     dask.compute(*datasets)
@@ -39,6 +46,8 @@ def main(paths):
     df = output[0][0]
 
     df.to_csv(paths[-1], index=False)
+
+    client.close()
 
 
 if __name__ == '__main__':

@@ -8,6 +8,8 @@ FILES = {
     'clothing.csv': ('Blouses', 'Shirts', 'Tanks', 'Cardigans', 'Pants', 'Capris', '"Gingham" Shorts',),
     'accessories.csv': ('Watches', 'Wallets', 'Purses', 'Satchels',),
     'household_cleaners.csv': ('Kitchen Cleaner', 'Bathroom Cleaner',),
+    'food.csv': ('Burgers', 'Tacos', 'Burritos',),
+    'furniture.csv': ('Couch', 'Table', 'Chair',),
 }
 
 
@@ -22,10 +24,10 @@ def write_file(writer, length, categories):
 
 def main():
     for fn, categories in FILES.items():
-        with open(path.join(DIR, 'fixtures', fn), 'w', encoding='utf-8') as fh:
+        with open(path.join(DIR, '../fixtures', fn), 'w', encoding='utf-8') as fh:
             write_file(
                 csv.writer(fh, doublequote=False, escapechar='\\', quoting=csv.QUOTE_ALL),
-                random.randint(100, 1000),
+                random.randint(1e7, 5e7),
                 categories
             )
 
