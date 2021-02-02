@@ -4,13 +4,13 @@ import ntpath
 import csv
 
 
-def make_dataset(df, file):
+def _make_dataset(df, file):
     filename = ntpath.split(file)[-1]
     df['filename'] = filename
     return df
 
 
-def main(paths):
+def out_of_memory_combine(paths):
     # create csv with header
     with open(paths[-1], 'w') as f:
         writer = csv.writer(f, delimiter=',')
@@ -21,9 +21,9 @@ def main(paths):
     for file in paths[:-1]:
         curr_df = pd.read_csv(file, chunksize=chunk_size)
         for chunk in curr_df:
-            temp_df = make_dataset(chunk, file)
+            temp_df = _make_dataset(chunk, file)
             temp_df.to_csv(paths[-1], mode='a', index=False, header=False)
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    out_of_memory_combine(sys.argv[1:])
