@@ -4,7 +4,7 @@
 The best script I wrote was `src/combine.py`. This uses the python csv writer, which because it wraps around a document pointer saves a lot on memory usage. 
 To run use the following:
 ``` 
-python src/combine.py <input_files> <output_files>
+python src/combine.py <input_files> <output_file>
 ```
 
 I wrote two slower implementations below. Dask does require the data set be saved to memory before writing so this doesn't work well in this application. The benefit of this script is that dask can be trivially scaled horizontally, and if each worker loads a data set the speed increase would be superior to scaling the `combine.py` vertically. 
