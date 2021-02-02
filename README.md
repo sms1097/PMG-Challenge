@@ -1,7 +1,7 @@
 # PMG-Challenge
 ## CSV Combiner
 
-The best script I wrote was `src/combine.py`. This uses the python csv writer, which because it wraps around a document pointer saves a lot on memory usage. 
+The best script I wrote was `src/combine.py`. This uses the python csv writer. 
 To run use the following:
 ``` 
 python src/combine.py <input_files> <output_file>
