@@ -1,15 +1,14 @@
 # PMG-Challenge
 ## CSV Combiner
 
-There are two implementations that make different assumptions about the problem
-
-To run either file use 
+The best script I wrote was `src/combine.py`. This uses the python csv writer, which because it wraps around a document pointer saves a lot on memory usage. 
+To run use the following:
 ``` 
-python src/<file> <input_files> <output_files>
+python src/combine.py <input_files> <output_files>
 ```
 
-### Data Set Fits in Memory
-The script `src/in_memory_combine.py` uses dask to initialize the datasets in parallel and combine them into one dask dataframe. Dask can be scaled horizontally very easily, so the assumption that the dataframe fits in memory is not unreasonable. Outside of this dask would perform best if the data was preprocessed and the additional column 
+I wrote two slower implementations below. Dask does require the data set be saved to memory before writing so this doesn't work well in this application. The benefit of this script is that dask can be trivially scaled horizontally, and if each worker loads a data set the speed increase would be superior to scaling the `combine.py` vertically. 
 
-### No Data Set Fits in Memory
-The script `src/out_of_memory_combine.py` assumes that none of the data sets to be combined fit in memory. This method uses chunking to sequentially feed data into the output csv file. 
+The other approach uses chunking with pandas data frames to append to a csv. This ended up being slow due to the write operation to the output file. Overall I can't think of any advantage to this approach. 
+
+The `test.py` file takes outputs from all methods and asserts they are equal. I tested by expanding the `generate_fixtures.py` script and adding more classes. I tested this for a few different generated data sets and saw passing results. 
